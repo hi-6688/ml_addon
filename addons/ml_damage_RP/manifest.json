@@ -1,0 +1,25 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "ml_mod - Floating Damage Indicator Resources",
+    "name": "ml_mod Damage Popups RP",
+    "uuid": "f8a32b59-5401-4932-c23b-90b21fc58888",
+    "pack_scope": "world",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "Resources",
+      "type": "resources",
+      "uuid": "c9d8e7f6-a5b4-4321-8765-43210fedcba9",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "e7f21a48-4390-4821-b12a-89a10eb49999",
+      "version": [1, 0, 0]
+    }
+  ]
+}

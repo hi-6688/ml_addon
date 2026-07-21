@@ -1,0 +1,41 @@
+{
+    "resource_pack_name": "ml_mod_RP",
+    "texture_name": "atlas.terrain",
+    "padding": 8,
+    "num_mip_levels": 4,
+    "texture_data": {
+        "ml_mod_marker_invisible": {
+            "textures": "textures/blocks/marker_invisible"
+        },
+        "ml_mod_marker_1": {
+            "textures": "textures/blocks/marker_1"
+        },
+        "ml_mod_marker_2": {
+            "textures": "textures/blocks/marker_2"
+        },
+        "ml_mod_marker_3": {
+            "textures": "textures/blocks/marker_3"
+        },
+        "ml_mod_marker_4": {
+            "textures": "textures/blocks/marker_4"
+        },
+        "ml_mod_marker_5": {
+            "textures": "textures/blocks/marker_5"
+        },
+        "ml_mod_marker_6": {
+            "textures": "textures/blocks/marker_6"
+        },
+        "ml_mod_marker_7": {
+            "textures": "textures/blocks/marker_7"
+        },
+        "ml_mod_marker_8": {
+            "textures": "textures/blocks/marker_8"
+        },
+        "ml_mod_marker_9": {
+            "textures": "textures/blocks/marker_9"
+        },
+        "ml_mod_marker_spawn": {
+            "textures": "textures/blocks/marker_spawn"
+        }
+    }
+}

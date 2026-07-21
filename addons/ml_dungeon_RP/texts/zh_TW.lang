@@ -1,0 +1,21 @@
+tile.ml_mod:spawner_marker_1.name=[開發] 第 1 波刷怪點
+tile.ml_mod:spawner_marker_2.name=[開發] 第 2 波刷怪點
+tile.ml_mod:spawner_marker_3.name=[開發] 第 3 波刷怪點
+tile.ml_mod:spawner_marker_4.name=[開發] 第 4 波刷怪點
+tile.ml_mod:spawner_marker_5.name=[開發] 第 5 波刷怪點
+tile.ml_mod:spawner_marker_6.name=[開發] 第 6 波刷怪點
+tile.ml_mod:spawner_marker_7.name=[開發] 第 7 波刷怪點
+tile.ml_mod:spawner_marker_8.name=[開發] 第 8 波刷怪點
+tile.ml_mod:spawner_marker_9.name=[開發] BOSS 刷怪點
+tile.ml_mod:spawner_marker_spawn.name=[開發] 玩家出生點
+
+item.ml_mod:spawner_marker_1.name=[開發] 第 1 波刷怪點
+item.ml_mod:spawner_marker_2.name=[開發] 第 2 波刷怪點
+item.ml_mod:spawner_marker_3.name=[開發] 第 3 波刷怪點
+item.ml_mod:spawner_marker_4.name=[開發] 第 4 波刷怪點
+item.ml_mod:spawner_marker_5.name=[開發] 第 5 波刷怪點
+item.ml_mod:spawner_marker_6.name=[開發] 第 6 波刷怪點
+item.ml_mod:spawner_marker_7.name=[開發] 第 7 波刷怪點
+item.ml_mod:spawner_marker_8.name=[開發] 第 8 波刷怪點
+item.ml_mod:spawner_marker_9.name=[開發] BOSS 刷怪點
+item.ml_mod:spawner_marker_spawn.name=[開發] 玩家出生點

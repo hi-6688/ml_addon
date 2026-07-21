@@ -1,0 +1,34 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "ml_mod - Dungeon & Marker Creator System",
+    "name": "ml_mod Dungeon BP",
+    "uuid": "c8a97f14-e214-4bd6-95aa-913c0eb4a712",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "Dungeon Scripting Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "a1e0b259-d293-422b-86ff-e4418b3c2cc0",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a3b93812-b2c3-4d2c-9933-bc0882e3cc02",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.8.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ]
+}

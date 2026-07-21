@@ -1,4 +1,4 @@
-import { world, BlockVolume, BlockPermutation } from "@minecraft/server";
+import { world, BlockVolume } from "@minecraft/server";
 import { STAGE_CONFIGS } from "./stages_config.js";
 
 // 定義雙舞台座標
@@ -7,6 +7,11 @@ export const STAGE_LOCATIONS = {
     B: { x: 200, y: 64, z: 0 }
 };
 
+// 關卡結構最大尺寸上限：64 x 64 x 64 格 (索引 0 ~ 63)
+export const STRUCTURE_MAX_SIZE = 64;
+// 實體掃除半徑：以舞台起點為中心，覆蓋整個 64x64x64 空間 (對角線長 ≈ 56，取 60 格保留緩衝)
+const ENTITY_SWEEP_RADIUS = 60;
+
 export class StageLoader {
     /**
      * 清空指定舞台區域 (使用 air.mcstructure 及 Entity Sweep)
@@ -14,7 +19,13 @@ export class StageLoader {
     static clearStageArea(dimension, baseLoc) {
         try {
             // 1. 掃除範圍內的殘留實體 (怪物/掉落物/箭矢/經驗球，排除玩家)
-            const entities = dimension.getEntities({ location: baseLoc, maxDistance: 64 });
+            // 以舞台中心點掃除，ENTITY_SWEEP_RADIUS = 60 可完整覆蓋 64x64x64 空間
+            const centerLoc = {
+                x: baseLoc.x + STRUCTURE_MAX_SIZE / 2,
+                y: baseLoc.y + STRUCTURE_MAX_SIZE / 2,
+                z: baseLoc.z + STRUCTURE_MAX_SIZE / 2
+            };
+            const entities = dimension.getEntities({ location: centerLoc, maxDistance: ENTITY_SWEEP_RADIUS });
             for (const entity of entities) {
                 if (entity.typeId !== "minecraft:player") {
                     try { entity.remove(); } catch (e) {}
@@ -62,9 +73,11 @@ export class StageLoader {
         };
 
         try {
+            // 掃描範圍：從舞台起點 (baseLoc) 到 baseLoc + 63，共 64 格 (0 ~ 63)
+            const scanEnd = STRUCTURE_MAX_SIZE - 1; // = 63
             const volume = new BlockVolume(
                 baseLoc,
-                { x: baseLoc.x + 63, y: baseLoc.y + 63, z: baseLoc.z + 63 }
+                { x: baseLoc.x + scanEnd, y: baseLoc.y + scanEnd, z: baseLoc.z + scanEnd }
             );
 
             // 搜集所有自訂標記方塊 identifier

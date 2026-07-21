@@ -1,15 +1,18 @@
 # Minecraft Bedrock Dedicated Server & Temporary Files
 bds_server/
 bds_server_clean_tmp/
+behavior_pack/
+resource_pack/
 *.log
 *.mcaddon
 *.mcpack
 *.tmp
 __pycache__/
 
-# Windows OS Files
+# Windows OS & IDE
 Thumbs.db
 Desktop.ini
+.vscode/
 
 # Antigravity & Temp Output
 .gemini/

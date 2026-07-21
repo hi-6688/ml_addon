@@ -1,8 +1,6 @@
 # Minecraft Bedrock Dedicated Server & Temporary Files
 bds_server/
 bds_server_clean_tmp/
-behavior_pack/
-resource_pack/
 *.log
 *.mcaddon
 *.mcpack

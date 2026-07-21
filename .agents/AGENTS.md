@@ -40,7 +40,7 @@
 ## 標記方塊系統規則
 
 - `spawner_marker_spawn`：玩家傳送出生點（每個結構**只能有 1 個**）。
-- `spawner_marker_1~9`：生怪波次座標點（可以有多個，系統會輪詢）。
+- `spawner_marker_1~9`：**純位置標記**，單純標記座標位置，不代表任何波次順序或 BOSS 專用。由 `stages_config.js` 的 `markerId` 欄位決定哪個標記點用於哪個波次、生怪哪種怪物。
 - 標記方塊**永遠不會被系統刪除或替換為空氣**（這是設計決策）。
 - 感應粒子顯示半徑 = **16 格**。
 
@@ -50,7 +50,7 @@
 
 - 新增關卡：**只編輯 `stages_config.js`**，不修改核心 `StageLoader.js` / `StageManager.js` / `StageCombat.js`。
 - 結構檔統一存放：`addons/ml_dungeon_BP/structures/ml_mod/{名稱}.mcstructure`。
-- Wave 9 (`markerId: "9"`) 慣例為 BOSS 出現位置。
+- `spawner_marker_1~9` 是**純位置標記**，哪個點用來生什麼怪、用在哪一波，全部由 `stages_config.js` 的 `markerId` 欄位決定。
 
 ---
 

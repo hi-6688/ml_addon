@@ -64,9 +64,9 @@ sequenceDiagram
 | 方塊 ID | 外觀 | 用途 |
 | :--- | :--- | :--- |
 | `ml_mod:spawner_marker_spawn` | 完全透明 | **玩家出生點**：加載完成後傳送玩家至此 |
-| `ml_mod:spawner_marker_1` | 完全透明 | 第 1 波生怪點 |
-| `ml_mod:spawner_marker_2` | 完全透明 | 第 2 波生怪點 |
-| `ml_mod:spawner_marker_3` ~ `9` | 完全透明 | 第 3~9 波生怪點（9 號慣例為 BOSS 出現點） |
+| `ml_mod:spawner_marker_1` | 完全透明 | **位置標記 1**：關卡設計師自由指定使用 |
+| `ml_mod:spawner_marker_2` | 完全透明 | **位置標記 2**：關卡設計師自由指定使用 |
+| `ml_mod:spawner_marker_3` ~ `9` | 完全透明 | **位置標記 3~9**：關卡設計師自由指定使用 |
 
 ### 物理特性
 

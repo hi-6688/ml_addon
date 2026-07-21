@@ -1,0 +1,13 @@
+{
+  "version": "0.3.0",
+  "configurations": [
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Attach to Minecraft",
+      "mode": "listen",
+      "localRoot": "${workspaceFolder}/stylized_damage_BP/",
+      "port": 19144
+    }
+  ]
+}

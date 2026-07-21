@@ -1,0 +1,33 @@
+name: Minecraft Add-on CI/CD
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Validate JSON Files
+      run: python validate_json.py
+
+    - name: Package Add-on
+      run: python pack_addon.py
+
+    - name: Upload Packaged Add-on Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: stylized_damage_addon
+        path: stylized_damage.mcaddon
+        if-no-files-found: error

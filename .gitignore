@@ -1,16 +1,16 @@
-# Minecraft Bedrock Dedicated Server & Testing
+# Minecraft Bedrock Dedicated Server & Temporary Files
 bds_server/
+bds_server_clean_tmp/
 *.log
-
-# Python Cache & Build Temp Files
-__pycache__/
-*.pyc
-*.tmp
+*.mcaddon
 *.mcpack
+*.tmp
+__pycache__/
 
 # Windows OS Files
 Thumbs.db
 Desktop.ini
 
-# Antigravity / Agent Temporary Files
+# Antigravity & Temp Output
 .gemini/
+out/

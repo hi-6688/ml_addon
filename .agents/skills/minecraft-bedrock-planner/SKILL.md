@@ -46,10 +46,11 @@ graph TD
 * **識別符命名空間**：解析自專案權威命名空間
 * **防崩潰保護策略**：`beforeEvents` 寫入操作強制包裹於 `system.run()`
 
-### 章節二：微軟 Learn 官方文檔與 Schema 鏈接引導
-提供權威線上參考來源，避免執行層憑空猜測：
-* **SAPI API 官方文件**：動態引導至 [Microsoft Learn SAPI Reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/)。
-* **JSON Component Schema**：引導執行層調用 MCP `getEffectiveContentSchema` 取得微軟官方 `minecraft-json-schemas` 的最新定義。
+### 章節二：微軟 Learn 官方文檔與 Schema 引導 (優先本地文檔庫)
+提供權威參考來源，確保計畫與執行層對齊官方標準：
+* **本地官方 Learn 文檔庫 (首選)**：優先引導查閱專案本地的微軟官方文檔庫 [`scratch/minecraft-creator/`](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/scratch/minecraft-creator/) 以及 Mojang 官方代碼範本庫 [`scratch/bedrock-samples/`](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/scratch/bedrock-samples/)。
+* **線上官方檔與 Schema 輔助**：必要時可導向 [Microsoft Learn SAPI Reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/) 或指示執行層調用 MCP `getEffectiveContentSchema` 取得最新 Component 定義。
+
 
 ### 章節三：變更模組與防護架構決策 (ReadOnly Guard Policy)
 在 `@minecraft/server` 的 `beforeEvents`（如 `playerBreakBlock`、`chatSend`）中，世界狀態為唯讀。凡涉及改變世界狀態的操作，**計畫書中必須明確記錄強制包裹於 `system.run(() => { ... })` 中**，杜絕 BDS 崩潰。

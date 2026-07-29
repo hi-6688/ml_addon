@@ -1,0 +1,18 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "ml_mod:dungeon_tester",
+            "menu_category": {
+                "category": "items",
+                "group": "itemGroup.name.items"
+            }
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "地牢傳送測試器"
+            },
+            "minecraft:icon": "ml_mod_dungeon_tester"
+        }
+    }
+}

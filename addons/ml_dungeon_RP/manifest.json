@@ -5,7 +5,7 @@
     "name": "ml_mod Dungeon RP",
     "uuid": "a3b93812-b2c3-4d2c-9933-bc0882e3cc02",
     "pack_scope": "world",
-    "version": [1, 0, 0],
+    "version": [1, 6, 18],
     "min_engine_version": [1, 21, 0]
   },
   "modules": [
@@ -13,13 +13,13 @@
       "description": "Resources",
       "type": "resources",
       "uuid": "d4c29011-9ad1-43ef-9932-3a088bc2cc03",
-      "version": [1, 0, 0]
+      "version": [1, 6, 18]
     }
   ],
   "dependencies": [
     {
       "uuid": "c8a97f14-e214-4bd6-95aa-913c0eb4a712",
-      "version": [1, 0, 0]
+      "version": [1, 6, 18]
     }
   ]
 }

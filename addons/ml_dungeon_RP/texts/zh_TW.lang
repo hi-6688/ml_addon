@@ -1,21 +1,32 @@
-tile.ml_mod:spawner_marker_1.name=[開發] 刷怪點 1
-tile.ml_mod:spawner_marker_2.name=[開發] 刷怪點 2
-tile.ml_mod:spawner_marker_3.name=[開發] 刷怪點 3
-tile.ml_mod:spawner_marker_4.name=[開發] 刷怪點 4
-tile.ml_mod:spawner_marker_5.name=[開發] 刷怪點 5
-tile.ml_mod:spawner_marker_6.name=[開發] 刷怪點 6
-tile.ml_mod:spawner_marker_7.name=[開發] 刷怪點 7
-tile.ml_mod:spawner_marker_8.name=[開發] 刷怪點 8
-tile.ml_mod:spawner_marker_9.name=[開發] 刷怪點 9
-tile.ml_mod:spawner_marker_spawn.name=[開發] 玩家出生點
+## ml_mod 地牢與標記系統 - 繁體中文多國語言檔
 
-item.ml_mod:spawner_marker_1.name=[開發] 刷怪點 1
-item.ml_mod:spawner_marker_2.name=[開發] 刷怪點 2
-item.ml_mod:spawner_marker_3.name=[開發] 刷怪點 3
-item.ml_mod:spawner_marker_4.name=[開發] 刷怪點 4
-item.ml_mod:spawner_marker_5.name=[開發] 刷怪點 5
-item.ml_mod:spawner_marker_6.name=[開發] 刷怪點 6
-item.ml_mod:spawner_marker_7.name=[開發] 刷怪點 7
-item.ml_mod:spawner_marker_8.name=[開發] 刷怪點 8
-item.ml_mod:spawner_marker_9.name=[開發] 刷怪點 9
-item.ml_mod:spawner_marker_spawn.name=[開發] 玩家出生點
+## 方塊名稱 (放置於地面時)
+tile.ml_mod:spawner_marker_1.name=生怪標記點 1
+tile.ml_mod:spawner_marker_2.name=生怪標記點 2
+tile.ml_mod:spawner_marker_3.name=生怪標記點 3
+tile.ml_mod:spawner_marker_4.name=生怪標記點 4
+tile.ml_mod:spawner_marker_5.name=生怪標記點 5
+tile.ml_mod:spawner_marker_6.name=生怪標記點 6
+tile.ml_mod:spawner_marker_7.name=生怪標記點 7
+tile.ml_mod:spawner_marker_8.name=生怪標記點 8
+tile.ml_mod:spawner_marker_9.name=生怪標記點 9
+tile.ml_mod:spawner_marker_spawn.name=玩家出生點標記方塊
+
+## 物品名稱 (手持與物品欄)
+item.ml_mod:spawner_marker_1.name=生怪標記點 1
+item.ml_mod:spawner_marker_2.name=生怪標記點 2
+item.ml_mod:spawner_marker_3.name=生怪標記點 3
+item.ml_mod:spawner_marker_4.name=生怪標記點 4
+item.ml_mod:spawner_marker_5.name=生怪標記點 5
+item.ml_mod:spawner_marker_6.name=生怪標記點 6
+item.ml_mod:spawner_marker_7.name=生怪標記點 7
+item.ml_mod:spawner_marker_8.name=生怪標記點 8
+item.ml_mod:spawner_marker_9.name=生怪標記點 9
+item.ml_mod:spawner_marker_spawn.name=玩家出生點標記方塊
+
+## 獨立自訂測試道具
+item.ml_mod:dungeon_tester.name=地牢傳送測試器
+
+## 自訂敵人
+entity.ml_mod:noob.name=小白
+item.spawn_egg.entity.ml_mod:noob.name=生怪蛋 (小白)

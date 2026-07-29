@@ -1,5 +1,7 @@
-import { world, system } from "@minecraft/server";
+import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
 import { SaveManager } from "./SaveManager.js";
+
+
 
 export class StageCombat {
     constructor(dimension, stageData, onStageCleared, onPlayerDied) {
@@ -57,9 +59,18 @@ export class StageCombat {
                     if (item.nameTag) {
                         mob.nameTag = item.nameTag;
                     }
+                    try {
+                        const equippable = mob.getComponent("minecraft:equippable");
+                        if (equippable) {
+                            equippable.setEquipment(EquipmentSlot.Mainhand, new ItemStack("minecraft:bow", 1));
+                        }
+                    } catch (eqErr) {
+                        console.warn(`[StageCombat] 手持弓裝備自動配發失敗: ${eqErr}`);
+                    }
                     this.activeEntities.push(mob);
                     spawnedTotal++;
                 } catch (e) {
+
                     console.error(`[StageCombat] 生怪失敗: ${e}`);
                 }
             }

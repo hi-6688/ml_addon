@@ -9,10 +9,13 @@
             }
         },
         "components": {
-            "minecraft:icon": "ml_mod_marker_spawn",
+            "minecraft:display_name": {
+                "value": "玩家出生點標記方塊"
+            },
             "minecraft:block_placer": {
                 "block": "ml_mod:spawner_marker_spawn"
-            }
+            },
+            "minecraft:icon": "ml_mod_marker_spawn"
         }
     }
 }

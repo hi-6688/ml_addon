@@ -1,0 +1,97 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ml_mod:noob",
+      "is_spawnable": true,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "monster",
+          "mob",
+          "ml_mod_mob"
+        ]
+      },
+      "minecraft:health": {
+        "value": 200,
+        "max": 200
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/noob_bow.json"
+      },
+      "minecraft:equippable": {},
+      "minecraft:shooter": {
+        "def": "minecraft:arrow",
+        "sound": "bow"
+      },
+      "minecraft:behavior.ranged_attack": {
+        "priority": 1,
+        "attack_radius": 30.0,
+        "attack_radius_min": 5.0,
+        "attack_interval_min": 0.5,
+        "attack_interval_max": 1.0,
+        "speed_multiplier": 1.4
+      },
+      "minecraft:behavior.avoid_mob_type": {
+        "priority": 3,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 8.0,
+            "walk_speed_multiplier": 1.4,
+            "sprint_speed_multiplier": 1.6
+          }
+        ]
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": false,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 30.0
+          }
+        ]
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 6,
+        "look_distance": 30.0
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "avoid_portals": true
+      },
+      "minecraft:movement.basic": {
+        "max_turn": 30
+      },
+      "minecraft:jump.static": {}
+    }
+  }
+}

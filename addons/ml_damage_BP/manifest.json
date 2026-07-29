@@ -1,10 +1,10 @@
 {
   "format_version": 2,
   "header": {
-    "description": "ml_mod - Floating Damage Indicator System",
+    "description": "ml_mod - Floating Damage Indicator System (TextPrimitive)",
     "name": "ml_mod Damage Popups BP",
-    "uuid": "e7f21a48-4390-4821-b12a-89a10eb49999",
-    "version": [1, 0, 0],
+    "uuid": "7f9b8c12-3d4e-4f5a-9b1c-8e7d6c5b4a31",
+    "version": [1, 1, 5],
     "min_engine_version": [1, 21, 0]
   },
   "modules": [
@@ -12,15 +12,15 @@
       "description": "Damage Indicator Script",
       "type": "script",
       "language": "javascript",
-      "uuid": "b2f1c3d4-e5f6-47a8-9b0c-1d2e3f4a5b6c",
-      "version": [1, 0, 0],
+      "uuid": "8a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d",
+      "version": [1, 1, 5],
       "entry": "scripts/damage_main.js"
     }
   ],
   "dependencies": [
     {
-      "uuid": "f8a32b59-5401-4932-c23b-90b21fc58888",
-      "version": [1, 0, 0]
+      "uuid": "9b8c7d6e-5f4a-3b2c-1d0e-9f8e7d6c5b4a",
+      "version": [1, 1, 5]
     },
     {
       "module_name": "@minecraft/server",

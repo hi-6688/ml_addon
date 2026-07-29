@@ -1,67 +1,32 @@
 # ml_addon 專案 AI 開發規範 (Project AI Rules)
 
-本檔案定義了 Antigravity AI Agent 在本專案中**必須嚴格遵守的開發規則與架構記憶**。
+本檔案為 AI Agent 在本專案中的**最高權限記憶與開發規範**。
 
 ---
 
-## 核心架構識別
+## 🛑 核心三大鐵律 (Core Constraints)
 
-- **專案根目錄**：`my_minecraft_addon/`
-- **所有 Add-on 原始碼**：放在 `addons/` 目錄下，分為 4 個子模組：
-  - `addons/ml_dungeon_BP`（地牢行為包）
-  - `addons/ml_dungeon_RP`（地牢資源包）
-  - `addons/ml_damage_BP`（傷害數字行為包）
-  - `addons/ml_damage_RP`（傷害數字資源包）
-- **工具腳本**：放在 `tools/` 目錄下，**不屬於 Add-on 原始碼**。
+1. **命名空間鐵律**：所有識別符（方塊、物品、粒子、維度、結構）**必須**以 `ml_mod:` 開頭。
+2. **優先熱重載 Policy**：修改 `.js` 腳本時優先進行 `/reload` 熱重載，禁止無故重啟 BDS 伺服器（除非修改 `manifest.json` 或伺服器設定）。
+3. **版號遞增限制**：未獲提示禁止擅改大/中版號，版號修改**只能在小版號 (Patch Version) 順延往上加**（例如 `1.2.6` ➔ `1.2.7` ➔ `1.2.8` ➔ `1.2.9` ➔ `1.2.10` ➔ `1.2.11`...，雙位數亦同）。
 
 ---
 
-## 命名空間鐵律
+## ⚙️ Git 提交與 Changelog 維護規範
 
-> 所有識別符（方塊、物品、粒子、維度、結構）**必須**以 `ml_mod:` 開頭！
-
-| 項目 | 正確 | 錯誤 |
-| :--- | :--- | :--- |
-| 標記方塊 | `ml_mod:spawner_marker_1` | `spawner_marker_1` |
-| 自訂維度 | `ml_mod:dungeon_dim` | `dungeon_dim` |
-| 結構讀取 | `ml_mod:test1` | `test1` |
-
----
-
-## 雙舞台座標 (不可更改)
-
-| 舞台 | X | Y | Z |
-| :--- | :--- | :--- | :--- |
-| **舞台 A** | `0` | `64` | `0` |
-| **舞台 B** | `200` | `64` | `0` |
-
----
-
-## 標記方塊系統規則
-
-- `spawner_marker_spawn`：玩家傳送出生點（每個結構**只能有 1 個**）。
-- `spawner_marker_1~9`：**純位置標記**，單純標記座標位置，不代表任何波次順序或 BOSS 專用。由 `stages_config.js` 的 `markerId` 欄位決定哪個標記點用於哪個波次、生怪哪種怪物。
-- 標記方塊**永遠不會被系統刪除或替換為空氣**（這是設計決策）。
-- 感應粒子顯示半徑 = **16 格**。
-
----
-
-## 關卡設計鐵律
-
-- 新增關卡：**只編輯 `stages_config.js`**，不修改核心 `StageLoader.js` / `StageManager.js` / `StageCombat.js`。
-- 結構檔統一存放：`addons/ml_dungeon_BP/structures/ml_mod/{名稱}.mcstructure`。
-- `spawner_marker_1~9` 是**純位置標記**，哪個點用來生什麼怪、用在哪一波，全部由 `stages_config.js` 的 `markerId` 欄位決定。
-
----
-
-## Git 提交規範
-
+### 1. Git 提交訊息
 - 所有 Git 提交訊息使用**繁體中文**。
 - 格式範例：`功能: 新增第三關關卡配置與 BOSS 波次`、`修復: 修正玩家死亡後標記方塊被清除的問題`。
 
+### 2. CHANGELOG 維護規範 (Changelog Protocol)
+- **維護時機 (When)**：每次進行小版號遞增、完成新功能開發或修正重大 Bug 時。
+- **寫法格式 (How)**：必須在 [`CHANGELOG.md`](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/CHANGELOG.md) 檔案頂部追加最新 `## 🚀 [v1.X.X] - YYYY-MM-DD` 條目，使用繁體中文清晰條列異動重點。
+
 ---
 
-## 開發文件位置
+## 📚 專案文件與權威庫索引 (Documentation Index)
 
-- **地牢系統完整開發定義書**：[`docs/DUNGEON_SPEC.md`](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/docs/DUNGEON_SPEC.md)
-- **版本更新日誌**：[`CHANGELOG.md`](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/CHANGELOG.md)
+- 📚 [**官方權威參考庫檢索指南**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/docs/OFFICIAL_REPOS.md)：微軟 Learn 官方文件 (`scratch/minecraft-creator/`) 與 Mojang 原生代碼 (`scratch/bedrock-samples/`) 檢索指引。
+- 🏰 [**地牢與標記系統完整開發定義書**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/docs/DUNGEON_SPEC.md)：地牢雙舞台座標、關卡設計規範與標記方塊系統邏輯。
+- 📝 [**版本更新日誌**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/CHANGELOG.md)：歷史版本修復與功能變更完整紀錄。
+- 📖 [**專案環境與 SAPI 說明**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/README.md)：系統工具鏈 (Node.js/Python)、SAPI `@minecraft/server: 2.8.0` 版本與 `.env` 本地設定指南。

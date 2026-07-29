@@ -20,14 +20,14 @@ jobs:
         python-version: '3.10'
 
     - name: Validate JSON Files
-      run: python validate_json.py
+      run: python tools/validate_json.py
 
-    - name: Package Add-on
-      run: python pack_addon.py
+    - name: Package Add-on Master Bundle
+      run: python pack_all.py
 
     - name: Upload Packaged Add-on Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: stylized_damage_addon
-        path: stylized_damage.mcaddon
+        name: ml_addon_master_bundle
+        path: ml_addon.mcaddon
         if-no-files-found: error

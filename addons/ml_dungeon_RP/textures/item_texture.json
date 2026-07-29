@@ -31,6 +31,9 @@
         },
         "ml_mod_marker_spawn": {
             "textures": "textures/blocks/marker_spawn"
+        },
+        "ml_mod_dungeon_tester": {
+            "textures": "textures/items/dungeon_tester"
         }
     }
 }

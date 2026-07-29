@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "麥亂大公寓 Discord 雙向橋接模組",
+    "name": "ml_dc BP",
+    "uuid": "4c9e83bd-47ba-4a37-b673-8a39e8020a5c",
+    "version": [1, 0, 2],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "ml_dc Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "f29b0f7e-7cda-48c0-82cb-23b6b19a123f",
+      "version": [1, 0, 2],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.8.0"
+    },
+    {
+      "module_name": "@minecraft/server-net",
+      "version": "1.0.0-beta"
+    }
+  ]
+}

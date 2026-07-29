@@ -9,10 +9,13 @@
             }
         },
         "components": {
-            "minecraft:icon": "ml_mod_marker_2",
+            "minecraft:display_name": {
+                "value": "生怪標記點 2"
+            },
             "minecraft:block_placer": {
                 "block": "ml_mod:spawner_marker_2"
-            }
+            },
+            "minecraft:icon": "ml_mod_marker_2"
         }
     }
 }

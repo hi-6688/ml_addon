@@ -183,3 +183,20 @@ flowchart TD
 - [ ] **副本時限 (Timer)**：加入倒數計時機制，時間到自動視為挑戰失敗。
 - [ ] **怪物進階 AI 組態**：目前怪物使用原版 AI，未來可掛載自訂 Behavior Pack 組件以強化怪物行為。
 - [ ] **關卡地圖設計**：目前僅有 `test1.mcstructure` 測試地圖，需設計與製作正式關卡地圖。
+
+---
+
+## 十一、解耦與觸發層設計原則 (Trigger Decoupling Principles)
+
+> [!IMPORTANT]
+> **開發期驗證工具 (Dev Test Harness)**：
+> 目前的 `openDungeonTestDDUI` 測試控制台面板僅作為開發階段驗證傳送、結構加載與波次戰鬥的測試介面。
+
+### 核心模組 100% 解耦設計
+核心邏輯 (`StageManager` / `StageLoader` / `StageCombat` / `SaveManager`) 採用獨立 API 架構，**不與任何特定 UI 介面強綁定**。未來可以無縫切換為多種正式遊戲觸發途徑：
+
+1. **NPC 對話互動**：右鍵點擊副本對話 NPC 觸發 `stageManager.startSession(player)`。
+2. **門戶方塊/區域踩踏**：玩家踏入特定副本傳送門框時觸發。
+3. **地牢鑰匙/道具使用**：玩家在背包中使用「古老鑰匙」時消耗道具並傳送。
+4. **任務與成就結算**：完成特定世界任務後自動啟動地牢挑戰。
+

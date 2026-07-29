@@ -12,6 +12,15 @@ Thumbs.db
 Desktop.ini
 .vscode/
 
+# Local Configuration
+.env
+
 # Antigravity & Temp Output
 .gemini/
 out/
+
+# Temporary & Reference Repos
+scratch/
+backups/
+.mct/
+

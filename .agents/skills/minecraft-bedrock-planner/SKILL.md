@@ -17,8 +17,10 @@ metadata:
 
 ```mermaid
 graph TD
-    A[1. 收到 Add-on 開發/修復需求] --> B[2. 官方文檔優先: 查閱微軟 Learn 與 Local References]
-    B --> C{3. 確定架構規範與鐵律}
+    A[1. 收到 Add-on 開發/修復需求] --> B{2. 語法/邊界是否完全確定?}
+    B -- 存有疑慮/複雜組件 --> B1[按需查閱 references/ 對應模組檔案] --> C
+    B -- 已完全確定 --> C[3. 確定架構規範與鐵律]
+    
     C --> C1[識別符必須統一前綴: ml_mod:]
     C --> C2[SAPI 版本約束: @minecraft/server 2.8.0]
     C --> C3[beforeEvents 寫入操作決策: 包裹於 system.run 中]
@@ -31,8 +33,8 @@ graph TD
 
 ## 📋 核心決策與防禦性守則
 
-### 1. 官方文檔優先 (Official Docs First)
-在擬定方案前，**必須先查閱微軟 Learn 官方文件或本地 `references/` 規範**，確定該版本的組件語法 (Component Schema) 與 API 方法簽名，禁止憑空猜測欄位名稱。
+### 1. 官方規範按需查閱 (On-Demand Reference Policy)
+不用每次重複漫無目的地閱讀所有文檔。**僅在涉及不確定的 Component Schema、SAPI API 方法簽名或組件語彙時，針對性調閱本地 `references/` 目錄下對應的文檔**，禁止盲目憑空猜測欄位名稱。
 
 ### 2. 唯讀事件保護鎖決策 (ReadOnly Guard Policy)
 在 `@minecraft/server` 的 `beforeEvents`（如 `playerBreakBlock`、`chatSend`）事件中，世界狀態為唯讀。凡涉及改變世界狀態的 API 操作，**計畫階段必須強制決定包裹在 `system.run(() => { ... })` 中**，延遲至下一 Tick 執行，杜絕 BDS 崩潰。

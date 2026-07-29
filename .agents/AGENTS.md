@@ -24,6 +24,17 @@
 
 ---
 
+## 📌 專案環境與 API 版本權威定義 (Single Source of Truth)
+
+* **SAPI 核心模組**：`@minecraft/server: 2.8.0` / `@minecraft/server-ui: 1.2.0`
+* **最低相容引擎**：`min_engine_version: [1, 20, 0]`
+* **識別符命名空間**：`ml_mod:`
+* **預設行為包與腳本進入點**：`addons/ml_dungeon_BP` / `scripts/main.js`
+* **防崩潰環境保護**：`beforeEvents` 寫入操作強制包裹於 `system.run(() => { ... })` 中
+
+---
+
+
 ## 📚 專案文件與權威庫索引 (Documentation Index)
 
 - 🏰 [**地牢與標記系統完整開發定義書**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/docs/DUNGEON_SPEC.md)：地牢雙舞台座標、關卡設計規範與標記方塊系統邏輯。

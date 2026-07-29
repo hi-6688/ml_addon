@@ -1,6 +1,6 @@
 ---
 name: minecraft-bedrock-planner
-description: 麥塊基岩版 (Bedrock Edition) 企劃與開發決策技能包。本技能的最終目的是查閱微軟 Learn 官方文檔與專案環境，並產出一份高品質的開發與修復實施計畫書 (implementation_plan.md)。
+description: 麥塊基岩版 (Bedrock Edition) 企劃與開發決策技能包。本技能的最終目的是動態讀取專案權威環境定義 (.agents/AGENTS.md 與 manifest.json) 並查閱微軟 Learn 官方文檔，最終寫出一份高品質的開發與修復實施計畫書 (implementation_plan.md)。
 license: Apache-2.0
 metadata:
   version: "1.0"
@@ -9,22 +9,22 @@ metadata:
 
 # 🧠 麥塊基岩版：計畫與決策技能包 (Minecraft Bedrock Planner)
 
-> **🎯 本技能的最終唯一目的**：**查閱微軟 Learn 官方文檔並鎖定專案環境，最終寫出一份防禦性強、結構清晰的『開發與修復實施計畫書 (`implementation_plan.md`)』。**
+> **🎯 本技能的最終唯一目的**：**動態讀取專案權威環境定義，對照微軟 Learn 官方文檔，最終產出一份防禦性強、結構清晰的『開發與修復實施計畫書 (`implementation_plan.md`)』。**
 
 ---
 
 ## 🌴 官方文檔查閱與計畫產出決策樹 (Planning Decision Tree)
 
-當收到任何 Add-on 開發、修改或修復需求時，AI **必須嚴格遵循以下決策樹進行文檔查閱並寫出計畫書**：
+當收到任何 Add-on 開發、修改或修復需求時，AI **必須嚴格遵循以下決策樹動態解析環境並寫出計畫書**：
 
 ```mermaid
 graph TD
-    A[1. 收到 Add-on 開發/修改/修復需求] --> B[2. 查閱微軟 Learn 官方文檔 & SAPI 參考手冊]
-    B --> C[3. 鎖定專案 API 版本環境矩陣]
-    C --> D{4. 評估變更風險與防禦決策}
+    A[1. 收到 Add-on 開發/修改/修復需求] --> B[2. 動態讀取專案權威環境: AGENTS.md / manifest.json]
+    B --> C[3. 查閱微軟 Learn 官方文檔 & SAPI 參考手冊對齊語法]
+    C --> D{4. 解析並帶入專案 API 環境矩陣與防禦決策}
     
-    D --> D1[識別符必須統一前綴: ml_mod:]
-    D --> D2[SAPI 版本邊界鎖定: @minecraft/server 2.8.0]
+    D --> D1[識別符必須統一前綴: 帶入專案命名空間]
+    D --> D2[SAPI 版本邊界鎖定: 帶入專案 @minecraft/server 版本]
     D --> D3[beforeEvents 寫入操作決策: 強制包裹於 system.run 中]
     D --> D4[版號與 CHANGELOG: 小版號遞增順延]
     
@@ -36,18 +36,19 @@ graph TD
 
 ## 📋 實施計畫書 (`implementation_plan.md`) 強制規範
 
-本技能產出的計畫書必須包含以下 **四大核心章節**：
+本技能產出的計畫書必須包含以下 **四大動態引導章節**：
 
-### 章節一：專案 API 版本與環境邊界矩陣
-明確鎖定執行層不可跨越的版本邊界：
-* **SAPI 模組版本**：`@minecraft/server: 2.8.0` / `@minecraft/server-ui: 1.2.0`
-* **最低引擎相容版本**：`min_engine_version: [1, 20, 0]`
-* **腳本進入點與語言**：JavaScript / `scripts/main.js`
-* **識別符命名空間**：`ml_mod:`
+### 章節一：動態專案 API 版本與環境邊界矩陣
+計畫書必須開宗明義動態解析並載入專案權威檔案 [`.agents/AGENTS.md`](file:///.agents/AGENTS.md) 或 `manifest.json` 所定義的環境：
+* **SAPI 模組版本**：解析自專案 `dependencies` 的 `@minecraft/server` 與 `@minecraft/server-ui` 版本
+* **最低引擎相容版本**：解析自 `min_engine_version`
+* **腳本進入點與語言**：解析自 `entry`
+* **識別符命名空間**：解析自專案權威命名空間
+* **防崩潰保護策略**：`beforeEvents` 寫入操作強制包裹於 `system.run()`
 
 ### 章節二：微軟 Learn 官方文檔與 Schema 鏈接引導
-提供權威參考來源，避免執行層憑空猜測：
-* **SAPI API 官方文件**：引用 [Microsoft Learn SAPI Reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/)。
+提供權威線上參考來源，避免執行層憑空猜測：
+* **SAPI API 官方文件**：動態引導至 [Microsoft Learn SAPI Reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/)。
 * **JSON Component Schema**：引導執行層調用 MCP `getEffectiveContentSchema` 取得微軟官方 `minecraft-json-schemas` 的最新定義。
 
 ### 章節三：變更模組與防護架構決策 (ReadOnly Guard Policy)

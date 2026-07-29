@@ -17,24 +17,32 @@ metadata:
 
 ```mermaid
 graph TD
-    A[1. 收到 Add-on 開發/修復需求] --> B{2. 語法/邊界是否完全確定?}
-    B -- 存有疑慮/複雜組件 --> B1[按需查閱 references/ 對應模組檔案] --> C
-    B -- 已完全確定 --> C[3. 確定架構規範與鐵律]
-    
+    A[1. 收到 Add-on 開發/修復需求] --> B[2. 自動讀取並鎖定專案環境與 API 版本矩陣]
+    B --> C{3. 確定架構規範與鐵律}
     C --> C1[識別符必須統一前綴: ml_mod:]
-    C --> C2[SAPI 版本約束: @minecraft/server 2.8.0]
+    C --> C2[SAPI 版本邊界鎖定: @minecraft/server 2.8.0 / @minecraft/server-ui 1.2.0]
     C --> C3[beforeEvents 寫入操作決策: 包裹於 system.run 中]
     C --> C4[版號與 CHANGELOG: 小版號遞增順延]
-    C1 & C2 & C3 & C4 --> D[4. 輸出開發與修復實施計畫]
+    C1 & C2 & C3 & C4 --> D[4. 產出包含『API 版本環境矩陣』的實施計畫書]
     D --> E[交付予 minecraft-bedrock-executor 執行工具包]
 ```
 
 ---
 
-## 📋 核心決策與防禦性守則
+## 📋 核心決策與計畫書強制規範
 
-### 1. 官方規範按需查閱 (On-Demand Reference Policy)
-不用每次重複漫無目的地閱讀所有文檔。**僅在涉及不確定的 Component Schema、SAPI API 方法簽名或組件語彙時，針對性調閱本地 `references/` 目錄下對應的文檔**，禁止盲目憑空猜測欄位名稱。
+### 1. 計劃書必須顯性聲明「API 版本與環境邊界矩陣」
+計畫階段產出的任何實施計畫，**必須首要明確條列當前專案的 API 版本環境**，確保執行層不會跨越版本邊界：
+
+* **SAPI 模組版本**：`@minecraft/server: 2.8.0` / `@minecraft/server-ui: 1.2.0`
+* **最低引擎相容版本**：`min_engine_version: [1, 20, 0]`
+* **腳本語言與進入點**：JavaScript / `scripts/main.js`
+* **命名空間與識別符**：`ml_mod:`
+* **防崩潰環境保護**：`beforeEvents` 寫入操作強制決策使用 `system.run()`
+
+### 2. 官方規範按需查閱 (On-Demand Reference Policy)
+僅在涉及不確定的 Component Schema、SAPI API 方法簽名或組件語彙時，針對性調閱本地 `references/` 目錄下對應的文檔，禁止盲目憑空猜測欄位名稱。
+
 
 ### 2. 唯讀事件保護鎖決策 (ReadOnly Guard Policy)
 在 `@minecraft/server` 的 `beforeEvents`（如 `playerBreakBlock`、`chatSend`）事件中，世界狀態為唯讀。凡涉及改變世界狀態的 API 操作，**計畫階段必須強制決定包裹在 `system.run(() => { ... })` 中**，延遲至下一 Tick 執行，杜絕 BDS 崩潰。

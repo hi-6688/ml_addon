@@ -46,3 +46,9 @@ graph TD
 ### 3. 專案鐵律決策
 * **命名空間**：所有識別符（方塊、物品、實體、粒子、維度）強制使用 `ml_mod:` 前綴。
 * **熱重載 Policy**：修改 `.js` 腳本時計劃進行 `/reload` 熱重載，禁止無故重啟 BDS。
+
+### 4. 官方文檔與 Schema 鏈接引導 (Official Docs & Schema Linking)
+當計畫書涉及複雜 Component、自訂實體組件或 SAPI API 時，**必須在計畫書中包含微軟 Learn 官方參考連結或 MCP 語意校驗依據**：
+* **SAPI 官方文件引導**：引用 [Microsoft Learn SAPI Reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/)。
+* **JSON Component Schema 引導**：引導執行層調用 MCP `getEffectiveContentSchema` 取得微軟官方 `minecraft-json-schemas` 的最新欄位定義。
+

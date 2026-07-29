@@ -9,79 +9,66 @@ metadata:
 
 # 麥塊基岩版官方 Creator 開發規範與 Script API 指南
 
-本技能包為 Minecraft 基岩版（Bedrock Edition）Add-on 開發與 Script API 編寫的官方正規指南，深度整合 **MCP 工具鏈 (`minecraft-creator-tools`)**、**`mojang/minecraft-debugger` 除錯工具** 與 **Blockbench 幾何模型/貼圖工具**，引導 AI 助手在開發與修復時遵循最防禦且高效的架構。
+本技能包採用 **「計畫與操作解耦架構 (Two-Phase Architecture: Planning vs. Execution)」**，將「計畫決策層」與「工具操作層」明確分離，確保 AI 在開發 Bedrock Add-on 時能先做嚴謹計畫、再進行精密工具操作。
 
 ---
 
-## 🛠️ 三大工具鏈功能整合指引
-
-1. **MCP 工具鏈 (`minecraft-creator-tools`)**：
-   * **內容與 Schema 驗證**：`validateContent` / `validateFile` / `getEffectiveContentSchema`（語意與結構靜態檢查）。
-   * **內容生成**：`createMinecraftContent` / `createProject` / `addItem`（自動生成標準相容結構）。
-   * **遊戲連線與熱重載**：`connectToMinecraftSession` / `runCommandInMinecraft`（發送 `/reload` 或遊戲測試指令）。
-2. **Debugger 工具 (`mojang/minecraft-debugger`)**：
-   * **斷點對接**：透過 `launch.json` 對接 BDS 或遊戲端 SAPI 腳本實時偵錯。
-   * **防崩潰保護鎖**：`beforeEvents` 唯讀狀態下，寫入 API 必須包裹在 `system.run(() => { ... })` 中。
-3. **Blockbench 幾何模型與貼圖工具**：
-   * **3D 模型生成**：使用 MCP `designModel` 與 `getModelTemplates` 自動生成 `.geo.json` 模型。
-   * **像素貼圖繪製**：使用 MCP `writeImageFileFromPixelArt` / `writeImageFile` 產生資源包 `.png` 貼圖。
-
----
-
-## 1. 開發與除錯思考模型決策樹 (Official Docs First Decision Tree)
-
-當收到開發、修改或除錯 Minecraft Bedrock Add-on 的請求時，AI 必須遵循「**官方文檔優先 (Official Docs First)**」決策樹：
+## 🎯 兩階段核心架構 (Two-Phase Architecture)
 
 ```mermaid
 graph TD
-    A[收到 Add-on 開發/修改/Debug 需求] --> B[0. 優先查閱微軟官方 Learn 文檔與 Local Reference 規範]
-    B --> C{第一階段: 需求與模組分類}
-    
-    C -- 方塊/物品/實體 JSON 結構 --> D[1. 內容設計與範本選取]
-    D --> D1[查閱 blocks-items-recipes.md / entities-animations.md]
-    D1 --> D2[使用 MCP getEffectiveContentSchema 確認官方最新 Schema]
-    D2 --> D3[使用 MCP createMinecraftContent 生成符合官方標準的 JSON]
-    
-    C -- 模型/貼圖/Blockbench 設計 --> E[2. 3D 模型與像素貼圖生成]
-    E --> E1[查閱官方 Blockbench 幾何規範 .geo.json]
-    E1 --> E2[使用 MCP designModel / writeImageFileFromPixelArt 生成資產]
-    
-    C -- SAPI 腳本邏輯 (JS/TS) --> F[3. 腳本編寫與防禦架構]
-    F --> F1[查閱 script-api-core.md 官方 API 規範與 2.8.0 邊界]
-    F1 --> F2[遵守 ReadOnly 保護鎖: 寫入操作包裹在 system.run]
-    F2 --> F3[所有識別符遵循 ml_mod: 命名空間]
-    
-    C -- 測試與 Bug 除錯 --> G[4. 除錯與熱重載驗證 (Debugger-First)]
-    G --> G1[使用 MCP validateContent / validateFile 進行官方 Schema 檢查]
-    G1 --> G2{靜態校驗是否通過?}
-    G2 -- 否 --> G3[對照官方 Schema 錯誤日誌修復] --> G1
-    G2 -- 是 --> G4[部署至 BDS / 測試環境]
-    G4 --> G5[使用 MCP runCommandInMinecraft 執行 /reload]
-    G5 --> G6{執行是否拋出異常/邏輯錯誤?}
-    G6 -- 否 --> H[完成交付]
-    G6 -- 是 --> G7[⚡️ 啟動 Debugger: 查閱官方 SAPI 偵錯指南 / Attach 斷點除錯] --> F
+    subgraph 階段一: 計畫與決策層 (Planning Layer)
+        A[1. 收到需求] --> B[2. 查閱微軟 Learn 官方文檔與 Reference 規範]
+        B --> C[3. 確定架構鐵律: ml_mod: 命名空間 / SAPI 2.8.0 / ReadOnly 保護]
+        C --> D[4. 制定開發與修復計畫]
+    end
+
+    subgraph 階段二: 操作與執行工具層 (Execution Layer)
+        D --> E{5. 選擇執行工具鏈}
+        E -- 內容生成 --> F1[MCP createMinecraftContent / addItem]
+        E -- 3D模型與貼圖 --> F2[Blockbench & MCP designModel / writeImageFile]
+        E -- 靜態校驗 --> F3[MCP validateContent / validateFile]
+        E -- 熱重載測試 --> F4[MCP runCommandInMinecraft 發送 /reload]
+        E -- 斷點偵錯 --> F5[Debugger: Attach mojang/minecraft-debugger]
+    end
 ```
 
 ---
 
-## 2. ⚡️ 核心開發與除錯守則
+## 📋 階段一：計畫與決策層 (Phase 1: Planning Layer)
 
-AI 在編寫或修改程式時，必須嚴格遵守以下四條防禦性核心守則：
+在執行任何程式碼寫入或工具調用前，**必須先完成計畫與決策**：
 
-### 🛑 守則一：官方文檔優先 (Official Docs First)
-在進行任何 JSON 修改或 SAPI 腳本編寫前，**必須先查閱官方 Learn 文件或本地 `references/` 規範**，確定該版本的組件語法 (Component Schema) 與 API 方法簽名，禁止憑空猜測欄位名稱。
+1. **官方文檔優先 (Official Docs First)**：
+   * 查閱微軟 Learn 官方文檔或本地 `references/` 規範（如 `script-api-core.md`、`blocks-items-recipes.md`），確定正式的 Component Schema 與 API 方法簽名。
+2. **防禦性架構決策**：
+   * **命名空間**：所有識別符必須強制使用 `ml_mod:` 前綴。
+   * **ReadOnly 保護鎖**：在 SAPI `beforeEvents` 監聽器中，所有改寫操作必須決策為包裹在 `system.run(() => { ... })` 中。
+   * **版號 Policy**：確定小版號順延規則，更新 `CHANGELOG.md`。
 
-### 🛑 守則二：除錯優先 (Debugger-First Logic)
-當程式碼執行不如預期、拋出異常或邏輯卡死時，**絕對禁止盲目猜測並無意義地頻繁修改程式碼**。
-AI 必須優先指引人類配置並啟動 **`mojang/minecraft-debugger`** VS Code 插件，進行真實的斷點檢查與單步執行（Step-through），找出精確出錯的變數或事件上下文。
+---
 
-### 🛑 守則三：唯讀事件保護鎖與延遲調度 (ReadOnly Event Guard)
-在 `@minecraft/server` 的 `beforeEvents`（如 `playerBreakBlock`、`chatSend`）事件監聽器中，遊戲引擎會將世界狀態鎖定為唯讀。在此監聽器內直接調用任何會改變世界狀態的 API（例如 `entity.teleport`、`world.sendMessage`、spawnEntity 等）會引發嚴重的執行期崩潰。
-* **解決方案**：AI 必須將所有寫入操作包裹在 `system.run(() => { ... })` 中，將其延遲到下一個 Tick 執行，從而繞過唯讀保護鎖，杜絕崩潰。
+## ⚡️ 階段二：操作與執行工具層 (Phase 2: Execution Layer)
 
-### 🛑 守則四：MCP 靜態校驗與熱重載 Policy
-* 生成或修改 JSON/腳本後，先調用 MCP `validateContent` 或 `validateFile` 進行語意檢查。
-* 修改 `.js` 腳本時，使用 MCP `runCommandInMinecraft` 發送 `/reload` 進行熱重載，避免無故重啟 BDS 伺服器。
+當計畫與架構確定後，進入**工具連線與具體操作階段**：
+
+### 1. 內容生成與 Schema 校驗工具
+* **範本與 Schema 檢索**：調用 MCP `getEffectiveContentSchema` 取得官方最新 Schema。
+* **標準檔生成**：調用 MCP `createMinecraftContent` / `addItem` 生成相容的 JSON 檔案。
+* **靜態校驗**：調用 MCP `validateContent` 或 `validateFile` 進行語意與結構靜態檢查。
+
+### 2. Blockbench 幾何模型與貼圖繪繪工具
+* **3D 幾何模型**：調用 MCP `designModel` 與 `getModelTemplates` 自動生成 Blockbench 相容的 `.geo.json` 模型。
+* **像素貼圖繪製**：調用 MCP `writeImageFileFromPixelArt` / `writeImageFile` 生成資源包 `.png` 貼圖。
+
+### 3. 熱重載與連線測試工具
+* **會話連線**：調用 MCP `connectToMinecraftSession` / `listMinecraftSessions` 連線測試。
+* **熱重載**：修改 `.js` 腳本後，調用 MCP `runCommandInMinecraft` 發送 `/reload`，避免無故重啟 BDS 伺服器。
+
+### 4. 斷點與崩潰偵錯工具 (Debugger-First)
+* **對接偵錯**：透過 `.vscode/launch.json` 對接 `mojang/minecraft-debugger` VS Code 插件進行實時斷點與單步執行 (Step-through)。
+* **日誌分析**：讀取 BDS SAPI 崩潰 Stack Trace，定位精確變數並修正。
+
 
 
 ---

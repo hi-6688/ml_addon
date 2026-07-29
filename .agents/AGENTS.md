@@ -30,5 +30,7 @@
 - 🎮 [**遊戲企劃書標準架構模板**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/docs/GAME_DESIGN_TEMPLATE.md)：多人共用遊戲企劃與 GDD 模組化規範。
 - 📝 [**版本更新日誌**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/CHANGELOG.md)：歷史版本修復與功能變更完整紀錄。
 - 📖 [**專案環境與 SAPI 說明**](file:///c:/Users/a0900/.gemini/antigravity-ide/scratch/my_minecraft_addon/README.md)：系統工具鏈 (Node.js/Python)、SAPI `@minecraft/server: 2.8.0` 版本與 `.env` 本地設定指南。
-- ⚡️ **微軟官方開發規範與檢索**：已整合至全域技能包 `minecraft-bedrock-creator`。
+- ⚡️ **微軟官方開發決策與計畫**：已整合至技能包 `minecraft-bedrock-planner`。
+- ⚡️ **MCP 工具鏈與除錯操作**：已整合至技能包 `minecraft-bedrock-executor`。
+
 
